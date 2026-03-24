@@ -1,0 +1,8 @@
+[info] 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss (C:\Users\Chokowa\Desktop\myTools\SubStop\lib\screens\categories_screen.dart:89:78)
+[error] 3 positional arguments expected by '_buildCompactFilter', but 1 found (C:\Users\Chokowa\Desktop\myTools\SubStop\lib\screens\dashboard_screen.dart:390:28)
+[error] The argument type 'Null Function(dynamic)' can't be assigned to the parameter type 'String'.  (C:\Users\Chokowa\Desktop\myTools\SubStop\lib\screens\dashboard_screen.dart:381:27)
+[warning] Unused import: '../utils/app_icons.dart' (C:\Users\Chokowa\Desktop\myTools\SubStop\lib\screens\dashboard_screen.dart:9:8)
+[info] Unnecessary braces in a string interpolation (C:\Users\Chokowa\Desktop\myTools\SubStop\lib\screens\dashboard_screen.dart:621:115)
+[info] Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check (C:\Users\Chokowa\Desktop\myTools\SubStop\lib\screens\dashboard_screen.dart:640:45)
+[info] Don't use 'BuildContext's across async gaps (C:\Users\Chokowa\Desktop\myTools\SubStop\lib\screens\history_screen.dart:42:26)
+[info] Unnecessary braces in a string interpolation (C:\Users\Chokowa\Desktop\myTools\SubStop\lib\screens\notification_settings_screen.dart:244:89)

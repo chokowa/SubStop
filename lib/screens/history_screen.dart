@@ -39,6 +39,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     sub.isCancelled = false;
     await DatabaseHelper.instance.updateSubscription(sub);
     _refreshList();
+    if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('リストに復帰しました。')));
   }
 

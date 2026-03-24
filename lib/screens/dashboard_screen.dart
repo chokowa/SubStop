@@ -6,7 +6,7 @@ import '../database/database_helper.dart';
 import '../services/notification_service.dart';
 import '../widgets/subscription_card.dart';
 import '../utils/app_colors.dart';
-import '../utils/app_icons.dart';
+
 import '../widgets/subscription_icon.dart';
 import 'analytics_screen.dart';
 import 'add_subscription_screen.dart';
@@ -378,6 +378,8 @@ class DashboardScreenState extends State<DashboardScreen> {
                         ),
                         const SizedBox(width: 8),
                         _buildCompactFilter(
+                          _sortOrder == 'next_billing_date' ? '支払日が近い' : (_sortOrder == 'price_desc' ? '高い順' : '安い順'),
+                          const ['支払日が近い', '高い順', '安い順'],
                           (val) {
                             if (val == '支払日が近い') {
                               _sortOrder = 'next_billing_date';
@@ -618,11 +620,11 @@ class DashboardScreenState extends State<DashboardScreen> {
                       // 通知設定の表示と編集ボタン
                       _buildDetailItem(
                         '通知設定',
-                        '${sub.notificationDays.isEmpty ? "なし" : sub.notificationDays.map((d) => d == 0 ? "当日" : "${d}日前").join(", ")} / ${sub.formatNotificationTime()}',
+                        '${sub.notificationDays.isEmpty ? "なし" : sub.notificationDays.map((d) => d == 0 ? "当日" : "$d日前").join(", ")} / ${sub.formatNotificationTime()}',
                         Icons.alarm_on_outlined,
                         onTap: () async {
                           // 通知設定を編集するための簡易的な処理
-                          // 本来はAddSubscriptionScreenと同様のUIが良いが、ここでは時間の変更のみデモ的に実装
+                          final nav = Navigator.of(context);
                           final newTime = await showTimePicker(
                             context: context,
                             initialTime: sub.notificationTime,
@@ -637,7 +639,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                             await NotificationService().scheduleDeadlineNotification(updatedSub);
                             if (mounted) {
                               setState(() { _subscriptionList = _refreshList(); });
-                              Navigator.pop(context); // 一旦閉じて更新を促す
+                              nav.pop(); // 一旦閉じて更新を促す
                               _showSubscriptionDetail(updatedSub); // 再表示
                             }
                           }

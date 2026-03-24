@@ -86,7 +86,7 @@ class CategoriesScreenState extends State<CategoriesScreen> {
                     style: TextStyle(color: AppColors.textMain(context), fontWeight: FontWeight.bold),
                     decoration: InputDecoration(
                       hintText: '例: 趣味, サブスク, ...',
-                      hintStyle: TextStyle(color: AppColors.textSub(context).withOpacity(0.5)),
+                      hintStyle: TextStyle(color: AppColors.textSub(context).withValues(alpha: 0.5)),
                       fillColor: AppColors.card(context),
                       filled: true,
                       border: OutlineInputBorder(

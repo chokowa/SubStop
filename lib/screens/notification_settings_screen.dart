@@ -241,7 +241,7 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
                             Padding(
                               padding: const EdgeInsets.only(top: 4),
                               child: Text(
-                                '通知: ${sub.notificationDays.map((d) => d == 0 ? "当日" : "${d}日前").join(", ")} / ${sub.formatNotificationTime()}',
+                                '通知: ${sub.notificationDays.map((d) => d == 0 ? "当日" : "$d日前").join(", ")} / ${sub.formatNotificationTime()}',
                                 style: TextStyle(color: AppColors.primary, fontSize: 10, fontWeight: FontWeight.w900),
                               ),
                             ),
