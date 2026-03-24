@@ -94,15 +94,6 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
       }
     });
 
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(value ? '$sub.nameの通知をONにしました' : '$sub.nameの通知をOFFにしました'),
-          duration: const Duration(milliseconds: 1500),
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
-    }
   }
 
   @override
