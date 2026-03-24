@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
-import 'dart:ui';
 import '../models/subscription.dart';
 import '../database/database_helper.dart';
 import '../services/notification_service.dart';
@@ -278,7 +277,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                     decoration: BoxDecoration(
                       color: const Color(0xFF1A1A1E), // 深いグレー（モックに準拠）
                       borderRadius: BorderRadius.circular(28),
-                      // border: Border.all(color: Colors.white.withOpacity(0.05), width: 1), // 控えめなエッジ
+                      // border: Border.all(color: Colors.white.withValues(alpha: 0.05), width: 1), // 控えめなエッジ
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -289,7 +288,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                             Text(
                               'TOTAL MONTHLY COST',
                               style: TextStyle(
-                                color: Colors.white.withOpacity(0.5),
+                                color: Colors.white.withValues(alpha: 0.5),
                                 fontSize: 10,
                                 fontWeight: FontWeight.w900,
                                 letterSpacing: 1.5,
@@ -298,7 +297,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                             AnimatedRotation(
                               duration: const Duration(milliseconds: 300),
                               turns: _isStatsExpanded ? 0.5 : 0,
-                              child: Icon(Icons.keyboard_arrow_down, color: Colors.white.withOpacity(0.3), size: 18),
+                              child: Icon(Icons.keyboard_arrow_down, color: Colors.white.withValues(alpha: 0.3), size: 18),
                             ),
                           ],
                         ),
@@ -379,12 +378,14 @@ class DashboardScreenState extends State<DashboardScreen> {
                         ),
                         const SizedBox(width: 8),
                         _buildCompactFilter(
-                          _sortOrder == 'next_billing_date' ? '支払日が近い' : (_sortOrder == 'price_desc' ? '高い順' : '安い順'),
-                          ['支払日が近い', '高い順', '安い順'],
                           (val) {
-                            if (val == '支払日が近い') _sortOrder = 'next_billing_date';
-                            else if (val == '高い順') _sortOrder = 'price_desc';
-                            else _sortOrder = 'price_asc';
+                            if (val == '支払日が近い') {
+                              _sortOrder = 'next_billing_date';
+                            } else if (val == '高い順') {
+                              _sortOrder = 'price_desc';
+                            } else {
+                              _sortOrder = 'price_asc';
+                            }
                             setState(() { _subscriptionList = _refreshList(); });
                           },
                         ),
@@ -435,9 +436,9 @@ class DashboardScreenState extends State<DashboardScreen> {
                                         margin: const EdgeInsets.only(bottom: 12),
                                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                                         decoration: BoxDecoration(
-                                          color: AppColors.card(context).withOpacity(0.5),
+                                          color: AppColors.card(context).withValues(alpha: 0.5),
                                           borderRadius: BorderRadius.circular(16),
-                                          border: Border.all(color: Colors.grey.withOpacity(0.2)),
+                                          border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
                                         ),
                                         child: Row(
                                           children: [
@@ -526,7 +527,7 @@ class DashboardScreenState extends State<DashboardScreen> {
           padding: const EdgeInsets.fromLTRB(28, 12, 28, 0),
           child: Column(
             children: [
-              Center(child: Container(width: 40, height: 4, decoration: BoxDecoration(color: Colors.grey.withOpacity(0.3), borderRadius: BorderRadius.circular(2)))),
+              Center(child: Container(width: 40, height: 4, decoration: BoxDecoration(color: Colors.grey.withValues(alpha: 0.3), borderRadius: BorderRadius.circular(2)))),
               const SizedBox(height: 24),
               Expanded(
                 child: SingleChildScrollView(
@@ -539,7 +540,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                           Container(
                             width: 60, height: 60,
                             clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(color: Color(sub.iconColorValue).withOpacity(0.1), borderRadius: BorderRadius.circular(18)),
+                            decoration: BoxDecoration(color: Color(sub.iconColorValue).withValues(alpha: 0.1), borderRadius: BorderRadius.circular(18)),
                             child: SubscriptionIcon(
                               iconName: sub.iconName,
                               colorValue: sub.iconColorValue,
@@ -570,7 +571,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                       const SizedBox(height: 32),
                       Container(
                         padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(color: AppColors.primary.withOpacity(0.06), borderRadius: BorderRadius.circular(20)),
+                        decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.06), borderRadius: BorderRadius.circular(20)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -627,7 +628,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                             initialTime: sub.notificationTime,
                           );
                           if (newTime != null) {
-                            final newSub = sub;
+                            // final newSub = sub; // removed unused
                             final newNotifyType = Subscription.createNotifyTypeJson(sub.notificationDays, newTime);
                             // プロパティを直接書き換える（SubscriptionモデルがImmutableでない前提、またはコピー作成）
                             // 実際には updateSubscription を呼ぶ
@@ -656,7 +657,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                               label: Text(sub.isCancelled ? '復活' : '解約', style: TextStyle(color: sub.isCancelled ? AppColors.safe : AppColors.danger, fontWeight: FontWeight.w900)),
                               style: TextButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(vertical: 16),
-                                backgroundColor: (sub.isCancelled ? AppColors.safe : AppColors.danger).withOpacity(0.08),
+                                backgroundColor: (sub.isCancelled ? AppColors.safe : AppColors.danger).withValues(alpha: 0.08),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                               ),
                             ),
@@ -669,7 +670,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                               label: const Text('履歴へ', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w900)),
                               style: TextButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(vertical: 16),
-                                backgroundColor: Colors.grey.withOpacity(0.08),
+                                backgroundColor: Colors.grey.withValues(alpha: 0.08),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                               ),
                             ),
@@ -708,7 +709,7 @@ class DashboardScreenState extends State<DashboardScreen> {
             ),
             if (onTap != null) ...[
               const Spacer(),
-              Icon(Icons.chevron_right, size: 16, color: AppColors.textSub(context).withOpacity(0.3)),
+              Icon(Icons.chevron_right, size: 16, color: AppColors.textSub(context).withValues(alpha: 0.3)),
             ],
           ],
         ),
@@ -758,7 +759,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                 child: Text(
                   '含めない',
                   style: TextStyle(
-                    color: !value ? Colors.white : Colors.white.withOpacity(0.3),
+                    color: !value ? Colors.white : Colors.white.withValues(alpha: 0.3),
                     fontSize: 10,
                     fontWeight: FontWeight.w800,
                   ),
@@ -780,7 +781,7 @@ class DashboardScreenState extends State<DashboardScreen> {
                 child: Text(
                   '含める',
                   style: TextStyle(
-                    color: value ? Colors.white : Colors.white.withOpacity(0.3),
+                    color: value ? Colors.white : Colors.white.withValues(alpha: 0.3),
                     fontSize: 10,
                     fontWeight: FontWeight.w800,
                   ),
@@ -799,7 +800,7 @@ class DashboardScreenState extends State<DashboardScreen> {
       decoration: BoxDecoration(
         color: AppColors.card(context),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.primary.withOpacity(0.15), width: 1.0),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.15), width: 1.0),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: DropdownButtonHideUnderline(

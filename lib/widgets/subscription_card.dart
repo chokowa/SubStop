@@ -1,11 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../models/subscription.dart';
 import '../utils/app_colors.dart';
-import '../utils/app_icons.dart';
 import 'subscription_icon.dart';
 
 class SubscriptionCard extends StatelessWidget {
@@ -57,10 +54,10 @@ class SubscriptionCard extends StatelessWidget {
     final serviceColor = Color(subscription.iconColorValue);
     final symbol = _getCurrencySymbol(subscription.currency);
 
-    double? priceInJPY;
     if (subscription.currency != 'JPY' && rates != null) {
       final rate = rates![subscription.currency] ?? 1.0;
-      priceInJPY = subscription.averageMonthlyPrice * rate;
+      // ignore: unused_local_variable
+      final priceInJPY = subscription.averageMonthlyPrice * rate;
     }
 
     var statusColor = AppColors.textSub(context);

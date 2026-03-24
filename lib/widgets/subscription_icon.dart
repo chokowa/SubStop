@@ -39,7 +39,7 @@ class SubscriptionIcon extends StatelessWidget {
         child: Image.network(
           finalIconPath,
           fit: BoxFit.contain,
-          errorBuilder: (_, __, ___) => Icon(fallbackIcon, color: color, size: size),
+          errorBuilder: (context, error, stackTrace) => Icon(fallbackIcon, color: color, size: size),
         ),
       );
     }

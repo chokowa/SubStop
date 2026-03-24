@@ -4,7 +4,6 @@ import '../models/subscription.dart';
 import '../database/database_helper.dart';
 import '../services/notification_service.dart';
 import '../utils/app_colors.dart';
-import '../utils/app_icons.dart';
 import '../widgets/subscription_icon.dart';
 
 class NotificationSettingsScreen extends StatefulWidget {
@@ -34,7 +33,7 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
   }
 
   // 一括設定用のステート
-  List<int> _bulkDays = [1];
+  final List<int> _bulkDays = [1];
   TimeOfDay _bulkTime = const TimeOfDay(hour: 9, minute: 0);
 
   Future<void> _applyBulkSettings() async {
@@ -98,7 +97,7 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(value ? '${sub.name}の通知をONにしました' : '${sub.name}の通知をOFFにしました'),
+          content: Text(value ? '$sub.nameの通知をONにしました' : '$sub.nameの通知をOFFにしました'),
           duration: const Duration(milliseconds: 1500),
           behavior: SnackBarBehavior.floating,
         ),
@@ -132,11 +131,11 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
               children: [
                 // 一括設定ヘッダー
                 Card(
-                  color: AppColors.primary.withOpacity(0.05),
+                  color: AppColors.primary.withValues(alpha: 0.05),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
-                    side: BorderSide(color: AppColors.primary.withOpacity(0.2)),
+                    side: BorderSide(color: AppColors.primary.withValues(alpha: 0.2)),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(20),
@@ -156,11 +155,14 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
                               selected: isSelected,
                               onSelected: (val) {
                                 setState(() {
-                                  if (val) _bulkDays.add(days);
-                                  else _bulkDays.remove(days);
+                                  if (val) {
+                                    _bulkDays.add(days);
+                                  } else {
+                                    _bulkDays.remove(days);
+                                  }
                                 });
                               },
-                              selectedColor: AppColors.primary.withOpacity(0.2),
+                              selectedColor: AppColors.primary.withValues(alpha: 0.2),
                               checkmarkColor: AppColors.primary,
                             );
                           }).toList(),
@@ -221,10 +223,10 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
                     margin: const EdgeInsets.only(bottom: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
-                      side: BorderSide(color: isEnabled ? serviceColor.withOpacity(0.3) : Colors.transparent, width: 1.0),
+                      side: BorderSide(color: isEnabled ? serviceColor.withValues(alpha: 0.3) : Colors.transparent, width: 1.0),
                     ),
                     child: SwitchListTile(
-                      activeColor: AppColors.primary,
+                      activeThumbColor: AppColors.primary,
                       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       title: Text(sub.name, style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.textMain(context))),
                       subtitle: Column(
@@ -252,7 +254,7 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
                         height: 44,
                         clipBehavior: Clip.antiAlias,
                         decoration: BoxDecoration(
-                          color: serviceColor.withOpacity(0.15),
+                          color: serviceColor.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: SubscriptionIcon(

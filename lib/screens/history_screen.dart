@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../models/subscription.dart';
 import '../database/database_helper.dart';
 import '../widgets/subscription_card.dart';
 import '../utils/app_colors.dart';
-import '../utils/app_icons.dart';
 import '../services/exchange_rate_service.dart';
 
 class HistoryScreen extends StatefulWidget {
@@ -39,7 +37,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Future<void> _restoreSubscription(Subscription sub) async {
     sub.isArchived = false;
     sub.isCancelled = false;
-    // 期限切れなら今日の日付を基準に次回支払日を再計算、等のロジックも将来的にはあり
     await DatabaseHelper.instance.updateSubscription(sub);
     _refreshList();
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('リストに復帰しました。')));
@@ -88,14 +85,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.archive_outlined, size: 64, color: AppColors.textSub(context).withOpacity(0.3)),
+                  Icon(Icons.archive_outlined, size: 64, color: AppColors.textSub(context).withValues(alpha: 0.3)),
                   const SizedBox(height: 16),
                   Text(
                     '履歴には何もありません', 
                     style: TextStyle(color: AppColors.textSub(context), fontSize: 16, fontWeight: FontWeight.bold)
                   ),
                   const SizedBox(height: 8),
-                  Text('解約済みやアーカイブしたものがここに並びます', style: TextStyle(color: AppColors.textSub(context).withOpacity(0.6), fontSize: 13)),
+                  Text('解約済みやアーカイブしたものがここに並びます', style: TextStyle(color: AppColors.textSub(context).withValues(alpha: 0.6), fontSize: 13)),
                 ],
               )
             );

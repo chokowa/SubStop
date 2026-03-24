@@ -414,7 +414,7 @@ class AddSubscriptionScreenState extends State<AddSubscriptionScreen> {
                         SizedBox(
                           width: 88,
                           child: DropdownButtonFormField<String>(
-                            value: _currency,
+                            initialValue: _currency,
                             decoration: _buildInputDecoration('', context),
                             items: const [
                               DropdownMenuItem(value: 'JPY', child: Text('¥')),
@@ -449,7 +449,7 @@ class AddSubscriptionScreenState extends State<AddSubscriptionScreen> {
                         const SizedBox(width: 8),
                         Expanded(
                           child: DropdownButtonFormField<String>(
-                            value: _cycle,
+                            initialValue: _cycle,
                             decoration: _buildInputDecoration('単位', context),
                             items: const [
                               DropdownMenuItem(value: 'monthly', child: Text('月')),
@@ -475,7 +475,7 @@ class AddSubscriptionScreenState extends State<AddSubscriptionScreen> {
                     _buildSectionTitle('支払い時期と更新期限', context),
                     const SizedBox(height: 12),
                     DropdownButtonFormField<String>(
-                      value: _billingType,
+                      initialValue: _billingType,
                       decoration: _buildInputDecoration('請求基準', context),
                       items: const [
                         DropdownMenuItem(
@@ -540,7 +540,7 @@ class AddSubscriptionScreenState extends State<AddSubscriptionScreen> {
                     ),
                     const SizedBox(height: 12),
                     DropdownButtonFormField<String>(
-                      value: _cancellationRule,
+                      initialValue: _cancellationRule,
                       decoration: _buildInputDecoration('解約期限', context),
                       items: const [
                         DropdownMenuItem(
@@ -602,7 +602,7 @@ class AddSubscriptionScreenState extends State<AddSubscriptionScreen> {
                               }
                             });
                           },
-                          selectedColor: AppColors.primary.withOpacity(0.2),
+                          selectedColor: AppColors.primary.withValues(alpha: 0.2),
                           checkmarkColor: AppColors.primary,
                         );
                       }).toList(),
@@ -631,7 +631,7 @@ class AddSubscriptionScreenState extends State<AddSubscriptionScreen> {
                       children: [
                         Expanded(
                           child: DropdownButtonFormField<String>(
-                            value: _category,
+                            initialValue: _category,
                             decoration: _buildInputDecoration('カテゴリ', context),
                             items: categoryOptions
                                 .map(
@@ -683,7 +683,7 @@ class AddSubscriptionScreenState extends State<AddSubscriptionScreen> {
                       children: [
                         Expanded(
                           child: DropdownButtonFormField<String?>(
-                            value: _selectedPaymentMethod.isEmpty
+                            initialValue: _selectedPaymentMethod.isEmpty
                                 ? null
                                 : _selectedPaymentMethod,
                             decoration: _buildInputDecoration('支払い方法', context),

@@ -143,7 +143,7 @@ class _ServicePresetPickerScreenState extends State<ServicePresetPickerScreen> {
                                       child: Image.network(
                                         preset.id,
                                         fit: BoxFit.contain,
-                                        errorBuilder: (_, __, ___) => Icon(
+                                        errorBuilder: (context, error, stackTrace) => Icon(
                                           preset.icon,
                                           color: Color(preset.color),
                                           size: 24,
